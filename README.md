@@ -19,50 +19,51 @@ El script lee ese texto, detecta todos los correos y los exporta a Excel.
 ## Paso 1: Copiar el correo (sin inspeccionar código)
 Desde el navegador Brave:
 
-Abre el correo en Outlook Web.
+1.1. Abre el correo en Outlook Web.
 
-Presiona Ctrl + A → Ctrl + C (copias todo el contenido visible).
+1.2. Presiona Ctrl + A → Ctrl + C (copias todo el contenido visible).
 
-Abre un editor de texto como Bloc de Notas.
+1.3. Abre un editor de texto como Bloc de Notas.
 
-Pega el contenido (Ctrl + V) y guárdalo como correo.txt.
+1.4. Pega el contenido (Ctrl + V) y guárdalo como correo.txt.
 
 ---
 
 
  ## Paso 2: Código Python para extraer y exportar
-- Instala primero (si no tienes):
+
+ 2.1 Instala primero (si no tienes):
 
   ```bash
   pip install pandas openpyxl
   ```
 
-- Luego ejecuta este script en Jupyter o Python:
+2.2 Luego ejecuta este script en Jupyter o Python:
 
 ```python
 import pandas as pd
 import re
 ```
 
-# 1. Cargar el texto copiado desde el navegador
+2.3 Cargar el texto copiado desde el navegador
 
 ```
 with open("correo.txt", encoding="utf-8") as file:
     contenido = file.read()
 ```
 
-# 2. Buscar correos con expresión regular
+2.4 Buscar correos con expresión regular
 
 ```
 correos = re.findall(r"[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+", contenido)
 ```
 
-# 3. Eliminar duplicados y ordenar
+2.5 Eliminar duplicados y ordenar
 ```
 correos_unicos = sorted(set(correos))
 ```
 
-# 4. Crear un DataFrame y exportar
+2.6 Crear un DataFrame y exportar
 
 ```
 df = pd.DataFrame(correos_unicos, columns=["Correo Electrónico"])
